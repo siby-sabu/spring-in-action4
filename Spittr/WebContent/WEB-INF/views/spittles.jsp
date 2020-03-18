@@ -13,7 +13,7 @@
 				<span class="spittleTime"> <c:out value="${spittle.time }"></c:out></span>
 				<span class="spittleLocation">(<c:out
 						value="${spittle.latitude }" />,<c:out
-						value="${spittle.longitude}" />)
+						value="${spittle.longitude}" /> )
 				</span>
 			</div>
 		</li>
