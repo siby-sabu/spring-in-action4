@@ -6,6 +6,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Spitter {
 
@@ -19,6 +20,8 @@ public class Spitter {
 	private String userName;
 	
 	private String password;
+	
+	private MultipartFile profilePicture;
 
 //	public Spitter(String firstName, String lastName, String userName, String password) {
 //		this.firstName = firstName;
@@ -87,6 +90,15 @@ public class Spitter {
 		this.password = password;
 	}
 	
+	
+	public MultipartFile getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(MultipartFile profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
 	@Override
 	public String toString() {
 		return String.format("[id =%s, firstname = %s, lastname=%s, username = %s, password = %s]", this.getId(),this.getFirstName(), this.getLastName(), this.getUserName(), this.getPassword());

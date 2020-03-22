@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<html>
+<body>
+	<div>
+		<h1>Spittles</h1>
+		<tr th:each="spittle : ${spittles}">
+		<br/>
+			<td><label><span th:text="${spittle.id}"></span> </label></td> |
+			<td><label><span th:text="${spittle.message}"></span> </label></td>
+		</tr>
+	</div>
+</body>
+</html>

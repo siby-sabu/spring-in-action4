@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spittr.Spittle;
 import com.spittr.data.SpittleRepository;
+import com.spittr.exception.DuplicateSpitterException;
+import com.spittr.exception.SpittleNotFoundException;
 
 @Controller
 @RequestMapping(value = "spittles")
@@ -28,13 +31,16 @@ public class SpittleController {
 
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Spittle> spittles(@RequestParam(name = "max", defaultValue = MAX_LONG_AS_STRING) long max, @RequestParam(name = "count", defaultValue = "20") int count) {
-		return repository.findSpittles(max, count);
+	public String spittles(@RequestParam(name = "max", defaultValue = MAX_LONG_AS_STRING) long max, @RequestParam(name = "count", defaultValue = "20") int count, Model model) {
+		List<Spittle> spittles = repository.findSpittles(max, count);
+		model.addAttribute("spittles", spittles);
+		return "spittles";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{spittleId}")
 	public String spittle(Model model, @PathVariable long spittleId) {
-		model.addAttribute("spittle", repository.findOne(spittleId));
+		Spittle spittle = repository.findOne(spittleId);
+		model.addAttribute("spittle", spittle);
 		return "spittle";
 	}
 	

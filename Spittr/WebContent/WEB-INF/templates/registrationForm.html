@@ -8,8 +8,8 @@
 <title>Registration</title>
 </head>
 <body>
-	<form method="POST" th:object="${spitter}">
-		<div class="error" th:if="${#fields.hasErrors('*')}">
+	<form method="POST" th:object="${spitter}" enctype="multipart/form-data">
+	<div class="error" th:if="${#fields.hasErrors('*')}">
 			<ul>
 				<li th:each="err:${#fields.errors('*')}" th:text="${err}">Input
 					incorrect</li>
@@ -31,6 +31,8 @@
 		<label th:class="${#fields.hasErrors('password')}?'error'">Password</label>
 		<input type="text" th:field="*{password}"
 			th:class="${#fields.hasErrors('password')}?'error'"></input> <br />
+			
+		<input type="file" name=profilePicture accept="image/jpeg,image/png,image/gif"></input> <br/>
 		<input type="submit" value="Register" />
 	</form>
 </body>
