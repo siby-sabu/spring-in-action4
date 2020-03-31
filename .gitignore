@@ -1,0 +1,9 @@
+target/
+target/*.war
+bin/
+/build/**
+target/**/*.jar
+**/WEB-INF/classes/**/*.class
+
+*.class
+*.war

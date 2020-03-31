@@ -14,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -27,14 +28,14 @@ import org.thymeleaf.templateresolver.TemplateResolution;
 @ComponentScan("com.spittr" )
 public class WebConfig implements WebMvcConfigurer{
 	
-//	@Bean
-//	public ViewResolver viewResolver() {
-//		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-//		resolver.setPrefix("/WEB-INF/views/");
-//		resolver.setSuffix(".jsp");
-//		resolver.setExposeContextBeansAsAttributes(true);
-//		return resolver;
-//	}
+	@Bean
+	public ViewResolver viewResolver() {
+		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/views/");
+		resolver.setSuffix(".jsp");
+		resolver.setExposeContextBeansAsAttributes(true);
+		return resolver;
+	}
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -56,12 +57,12 @@ public class WebConfig implements WebMvcConfigurer{
 		return messageSource;
 	}
 	
-	@Bean
-	public ViewResolver viewResolver() {
-		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-		viewResolver.setTemplateEngine(templateEngine());
-		return viewResolver;
-	}
+//	@Bean
+//	public ViewResolver viewResolver() {
+//		ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+//		viewResolver.setTemplateEngine(templateEngine());
+//		return viewResolver;
+//	}
 		
 	
 	@Bean

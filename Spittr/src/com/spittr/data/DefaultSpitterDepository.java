@@ -21,7 +21,16 @@ public class DefaultSpitterDepository implements SpitterRepository {
 
 	@Override
 	public Spitter get(String  userName) {
-		return spitterMap.get(userName);
+//		if(spitterMap.size()>0) {
+//			return spitterMap.get(userName);
+//		}
+		Spitter spitter = new Spitter();
+		spitter.setId(1l);
+		spitter.setUserName("siby");
+		spitter.setPassword("$2a$10$M4vGFYoOPUoIfu5Y2zuIW.cGciXuhYHl8iXGGhCjOdkIxU37zgn42");
+		spitterMap.put("1", spitter);
+		return spitter;
+
 	}
 
 }

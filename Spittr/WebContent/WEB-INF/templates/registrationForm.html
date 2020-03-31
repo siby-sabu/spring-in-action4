@@ -8,6 +8,11 @@
 <title>Registration</title>
 </head>
 <body>
+	
+	<form method="POST" th:action="@{/logmeout}" >
+		<input type="submit" value="Logout" />
+	</form>
+	
 	<form method="POST" th:object="${spitter}" enctype="multipart/form-data">
 	<div class="error" th:if="${#fields.hasErrors('*')}">
 			<ul>
