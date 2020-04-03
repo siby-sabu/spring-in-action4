@@ -1,6 +1,14 @@
 package com.spittr;
 
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -8,19 +16,29 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.springframework.web.multipart.MultipartFile;
 
+@Entity
+@Table(name = "spitter")
 public class Spitter {
 
+	@Id
+	@Column(name = "id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
+	@Column(name = "firstname")
 	private String firstName;
 	
+	@Column(name = "lastname")
 	private String lastName;
 	
+	@Column(name = "username")
+	@NotEmpty(message = "Username cannot be empty")
 	private String userName;
 	
+	@Column(name = "password")
 	private String password;
 	
+	@Transient
 	private MultipartFile profilePicture;
 
 //	public Spitter(String firstName, String lastName, String userName, String password) {
@@ -30,17 +48,17 @@ public class Spitter {
 //		this.password = password;
 //	}
 //
-//	public Spitter(Long id, String firstName, String lastName, String userName, String password) {
-//		this.id = id;
-//		this.firstName = firstName;
-//		this.lastName = lastName;
-//		this.userName = userName;
-//		this.password = password;
-//	}
-//	
-//	public Spitter() {
-//		// TODO Auto-generated constructor stub
-//	}
+	public Spitter(Long id, String firstName, String lastName, String userName, String password) {
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.password = password;
+	}
+	
+	public Spitter() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public Long getId() {
 		return id;

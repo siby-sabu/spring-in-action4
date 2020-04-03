@@ -28,7 +28,7 @@ public class SpitterUserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		try {
-			Spitter spitter = spitterRepository.get(username);
+			Spitter spitter = spitterRepository.findSpitterByUserName(username);
 			if (spitter != null) {
 				List<GrantedAuthority> authorities = new ArrayList<>();
 				authorities.add(new SimpleGrantedAuthority("ROLE_SPITTER"));

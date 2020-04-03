@@ -12,7 +12,7 @@ import com.spittr.exception.DuplicateSpitterException;
 import com.spittr.exception.SpittleNotFoundException;
 
 @Component
-public class DefaultSpittleDepository implements SpittleRepository {
+public class DefaultSpittleRepository implements SpittleRepository {
 
 	List<Spittle> spittleList = new ArrayList<>();
 

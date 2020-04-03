@@ -72,19 +72,28 @@ public class SpitterController {
 			return "registrationForm";
 		}
 		System.out.println("Multipart file length "+ profilePicture.getOriginalFilename());
-		Spitter savedSpitter = repository.save(spitter);
+		Spitter savedSpitter = repository.saveAndFlush(spitter);
+		
+	
 		//saveFile(profilePicture);
-		model.addAttribute("userName", savedSpitter.getUserName());
-		model.addFlashAttribute("spitter", spitter);
+		//model.addAttribute("userName", savedSpitter.getUserName());
+		//model.addFlashAttribute("spitter", spitter);
 		//profilePicture.transferTo(new File("/Users/I336545/Documents/learnings/spring/tmp/spittr/upload/"+profilePicture.getOriginalFilename()));
-		return "redirect:/spitter/{userName}" ;
+		model.addAttribute("id", savedSpitter.getId());
+		
+		return "redirect:/spitter/{id}" ;
 	}
 
-	@RequestMapping(value = "/{userName}", method = RequestMethod.GET)
-	public String showSpitterProfile(@PathVariable String userName, Model model) {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String showSpitterProfile(@PathVariable Long id, Model model) {
 		if(!model.containsAttribute("spitter")) {
 			System.out.println("Spitter attribute not present");
-			model.addAttribute("spitter", repository.get(userName));
+			System.out.println("Saved spitter ID "+ id);
+			//model.addAttribute("spitter", repository.findSpitterByUserName(userName));
+			Spitter spitter = repository.findByOnlyId(id);
+			int updatedSpitters = repository.updateLateSpittersLastName(id-3);
+			System.out.println("Spitters got updated:"+ updatedSpitters);
+			model.addAttribute("spitter", spitter);
 		}
 		return "profile";
 	}

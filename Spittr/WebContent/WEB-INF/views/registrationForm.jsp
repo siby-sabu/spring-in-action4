@@ -13,8 +13,7 @@
 </head>
 <body>
 	<h1>Register</h1>
-	<div> Hello <security:authentication property="principal.username"/> </div> !
-	<sf:form method="POST" modelAttribute="spitter"
+	<sf:form method="POST" modelAttribute="spitter" enctype="multipart/form-data"
 		action="/Spittr/spitter/register">
 
 		<sf:errors path="*" element="div" cssClass="errors" />
@@ -29,6 +28,9 @@
 			<br />
 		Password: <sf:password path="password" />
 		<br />
+		
+		<input type="file" name=profilePicture accept="image/jpeg,image/png,image/gif"></input> <br/>
+		
 		<input type="submit" value="Register" />
 	</sf:form>
 
