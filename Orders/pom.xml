@@ -9,6 +9,7 @@
 
 	<properties>
 		<spring.version>5.2.4.RELEASE</spring.version>
+		<neo4j.version>3.3.9</neo4j.version>
 	</properties>
 	<dependencies>
 		<!-- spring-context which provides core functionality -->
@@ -57,12 +58,44 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>2.2.6.RELEASE</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-neo4j -->
+		<dependency>
+		    <groupId>org.springframework.data</groupId>
+		    <artifactId>spring-data-neo4j</artifactId>
+		    <version>5.2.6.RELEASE</version>
+		</dependency>
+		
 
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.9.5</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.neo4j/neo4j-graphdb-api -->
+		<dependency>
+		    <groupId>org.neo4j</groupId>
+		    <artifactId>neo4j-graphdb-api</artifactId>
+		    <version>${neo4j.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.neo4j/neo4j-configuration -->
+		<dependency>
+		    <groupId>org.neo4j</groupId>
+		    <artifactId>neo4j-configuration</artifactId>
+		    <version>${neo4j.version}</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.neo4j/neo4j-graphdb-api -->
+		<dependency>
+		    <groupId>org.neo4j</groupId>
+		    <artifactId>neo4j-graphdb-api</artifactId>
+		    <version>${neo4j.version}</version>
+		</dependency>
+		
+		
+		
 		
 
 
