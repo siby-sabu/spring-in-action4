@@ -1,5 +1,6 @@
 package com.orders;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -10,6 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document
 public class Order {
 	
+	/**
+	 * 
+	 */
+
 	@Id
 	private String id;
 	
