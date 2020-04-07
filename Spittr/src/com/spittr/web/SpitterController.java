@@ -63,7 +63,7 @@ public class SpitterController {
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String register( @RequestPart ("profilePicture") MultipartFile profilePicture, @Valid @ModelAttribute("spitter") Spitter spitter, BindingResult result,
+	public String register( /** @RequestPart ("profilePicture") MultipartFile profilePicture, **/ @Valid @ModelAttribute("spitter") Spitter spitter, BindingResult result,
 			RedirectAttributes model) throws IllegalStateException, IOException, DuplicateSpitterException {
 		
 		validator.validate(spitter, result);
@@ -71,7 +71,7 @@ public class SpitterController {
 			System.out.println("Errors detected");
 			return "registrationForm";
 		}
-		System.out.println("Multipart file length "+ profilePicture.getOriginalFilename());
+		//System.out.println("Multipart file length "+ profilePicture.getOriginalFilename());
 		Spitter savedSpitter = repository.save(spitter);
 		//saveFile(profilePicture);
 		model.addAttribute("userName", savedSpitter.getUserName());

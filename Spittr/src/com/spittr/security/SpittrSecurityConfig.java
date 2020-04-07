@@ -23,15 +23,15 @@ public class SpittrSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	SpitterRepository spitterRepository;
 	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.jdbcAuthentication()
-//			.dataSource(dataSource)
-//			.usersByUsernameQuery("select username, password, enabled from users where username=?")
-//			.authoritiesByUsernameQuery("select username, roles from user_roles where username=?")
-//			.passwordEncoder(new BCryptPasswordEncoder());
-//		
-//	}
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication()
+			.dataSource(dataSource)
+			.usersByUsernameQuery("select username, password, enabled from users where username=?")
+			.authoritiesByUsernameQuery("select username, roles from user_roles where username=?")
+			.passwordEncoder(new BCryptPasswordEncoder());
+		
+	}
 	
 //	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //		auth.ldapAuthentication()
@@ -46,11 +46,11 @@ public class SpittrSecurityConfig extends WebSecurityConfigurerAdapter {
 //			
 //	}
 	
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(new SpitterUserService(spitterRepository))
-		.passwordEncoder(new BCryptPasswordEncoder());
-	}
+//	@Override
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.userDetailsService(new SpitterUserService(spitterRepository))
+//		.passwordEncoder(new BCryptPasswordEncoder());
+//	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -58,27 +58,28 @@ public class SpittrSecurityConfig extends WebSecurityConfigurerAdapter {
 			.loginPage("/login")
 				.and()
 			.logout()
-			.logoutUrl("/logmeout")
+			.logoutUrl("/logout")
 			.logoutSuccessUrl("/")
 			.deleteCookies("JSESSIONID")
-				.and()
-			.rememberMe()
-			.tokenValiditySeconds(23231323)
-			.key("spittrKey")
+//				.and()
+//			.rememberMe()
+//			.tokenValiditySeconds(23231323)
+//			.key("spittrKey")
 				.and()
 			.authorizeRequests()
-			.antMatchers("/spitter/register").hasAuthority("ROLE_SPITTER")
-			.antMatchers("/spitters/me").hasAuthority("ROLE_SPITTER")
-			.antMatchers(HttpMethod.POST, "/spittles").hasRole("SPITTER")
-			.anyRequest().permitAll();
+			.antMatchers("/spitter/register")
+			.hasAuthority("ROLE_ADMIN")
+			.antMatchers("/spitters/me").hasAuthority("ROLE_USER")
+			.antMatchers(HttpMethod.POST, "/spittles").hasRole("USER")
+			.anyRequest().permitAll()
 //				.and()
 //			.requiresChannel()
 //			.antMatchers("/").requiresInsecure()
 //			.antMatchers("/spitter/register")
 //			.requiresSecure()
-//				.and()
-//			.csrf()
-//			.disable();
+				.and()
+			.csrf()
+			.disable();
 	}
 
 }

@@ -13,7 +13,7 @@
 </head>
 <body>
 	<h1>Register</h1>
-	<div> Hello <security:authentication property="principal.username"/> </div> !
+	<div> Hello <security:authentication property="principal.username"/>! </div> 
 	<sf:form method="POST" modelAttribute="spitter"
 		action="/Spittr/spitter/register">
 
