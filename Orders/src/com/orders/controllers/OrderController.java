@@ -3,6 +3,9 @@ package com.orders.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,7 @@ public class OrderController {
 	RedisTemplate<String,Order> redisTemplate;
 	
 	@PostMapping("/order")
+	@CachePut(value = "spittleCache", key = "#result.id")
 	public Order saveOrder(@RequestBody Order order) {
 		//return repository.save(order);
 		redisTemplate.opsForValue().set(order.getId(), order);
@@ -39,10 +43,11 @@ public class OrderController {
 		
 	}
 	
+	@Cacheable(value = "spittleCache")
 	@GetMapping("/order/{id}")
 	public @ResponseBody Order getOrder(@PathVariable String id) {
 		//return repository.findById(id).orElse(new Order());
-		return null;
+		return redisTemplate.opsForValue().get(id);
 	}
 	
 //	@GetMapping("/order")
@@ -65,11 +70,13 @@ public class OrderController {
 		return 0;
 	}
 	
+	@CacheEvict(value = "spittleCache")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
 	@DeleteMapping("/order/{id}")
 	public void deleteOrder(@PathVariable("id") String id) {
 //		System.out.println("Deleting order wit id"+ id);
 //		repository.deleteById(id);
+		redisTemplate.delete(id);
 	}
 	
 
