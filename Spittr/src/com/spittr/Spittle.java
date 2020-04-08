@@ -12,6 +12,7 @@ public class Spittle {
 	private final Date time;
 	private Double latitude;
 	private Double longitude;
+	private Spitter spitter;
 
 	public Spittle(String message, Date time) {
 		this(message, time, null, null);
@@ -52,6 +53,14 @@ public class Spittle {
 
 	public Double getLatitude() {
 		return latitude;
+	}
+
+	public Spitter getSpitter() {
+		return spitter;
+	}
+
+	public void setSpitter(Spitter spitter) {
+		this.spitter = spitter;
 	}
 
 	@Override

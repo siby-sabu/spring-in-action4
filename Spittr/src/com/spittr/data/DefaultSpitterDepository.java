@@ -3,6 +3,11 @@ package com.spittr.data;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.security.RolesAllowed;
+
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import com.spittr.Spitter;
@@ -13,6 +18,10 @@ public class DefaultSpitterDepository implements SpitterRepository {
 	Map<String,Spitter> spitterMap = new HashMap<>();
 
 	@Override
+	//@Secured({"ROLE_SPITTER", "ROLE_ADMIN"})
+	//@RolesAllowed("ROLE_ADMIN")
+	//@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') and #spitter.userName.length() < 5")
+	@PostAuthorize("returnObject.userName == principal.username")
 	public Spitter save(Spitter spitter) {
 		spitter.setId(Long.valueOf(spitterMap.size()+1));
 		spitterMap.put(spitter.getUserName(), spitter);
