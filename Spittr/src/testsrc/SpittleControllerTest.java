@@ -18,9 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceView;
 
 import com.spittr.Spittle;
+import com.spittr.api.SpittleController;
 import com.spittr.data.SpittleRepository;
-import com.spittr.web.SpittleController;
-
 
 public class SpittleControllerTest {
 	

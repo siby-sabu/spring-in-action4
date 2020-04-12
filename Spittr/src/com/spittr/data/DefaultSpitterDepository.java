@@ -21,7 +21,7 @@ public class DefaultSpitterDepository implements SpitterRepository {
 	//@Secured({"ROLE_SPITTER", "ROLE_ADMIN"})
 	//@RolesAllowed("ROLE_ADMIN")
 	//@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER') and #spitter.userName.length() < 5")
-	@PostAuthorize("returnObject.userName == principal.username")
+	//@PostAuthorize("returnObject.userName == principal.username")
 	public Spitter save(Spitter spitter) {
 		spitter.setId(Long.valueOf(spitterMap.size()+1));
 		spitterMap.put(spitter.getUserName(), spitter);

@@ -1,4 +1,4 @@
-package com.spittr;
+package com.spittr.client.data;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Spittle {
 
 	private  Long id;

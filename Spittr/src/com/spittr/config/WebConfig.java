@@ -1,26 +1,25 @@
 package com.spittr.config;
 
-import java.io.IOException;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.http.MediaType;
+import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.thymeleaf.TemplateEngine;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.TemplateResolution;
 
 
 @Configuration
@@ -28,14 +27,38 @@ import org.thymeleaf.templateresolver.TemplateResolution;
 @ComponentScan("com.spittr" )
 public class WebConfig implements WebMvcConfigurer{
 	
-	@Bean
-	public ViewResolver viewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-		resolver.setPrefix("/WEB-INF/views/");
-		resolver.setSuffix(".jsp");
-		resolver.setExposeContextBeansAsAttributes(true);
-		return resolver;
+//	@Bean
+//	public ViewResolver viewResolver() {
+//		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+//		resolver.setPrefix("/WEB-INF/views/");
+//		resolver.setSuffix(".jsp");
+//		resolver.setExposeContextBeansAsAttributes(true);
+//		return resolver;
+//	}
+//	
+	
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		configurer.defaultContentType(MediaType.APPLICATION_JSON);
 	}
+	
+	@Bean
+	public ViewResolver ViewResolver(ContentNegotiationManager contentNegotiationManager) {
+		ContentNegotiatingViewResolver cnv = new ContentNegotiatingViewResolver();
+		cnv.setContentNegotiationManager(contentNegotiationManager);
+		return cnv;
+	}
+	
+	@Bean
+	public ViewResolver beanNameViewResolver() {
+		return new BeanNameViewResolver();
+	}
+	
+	@Bean
+	public View spittles() {
+		return new MappingJackson2JsonView();
+	}
+	
 	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

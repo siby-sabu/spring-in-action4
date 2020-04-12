@@ -21,23 +21,21 @@ public class DefaultSpittleDepository implements SpittleRepository {
 	List<Spittle> spittleList = new ArrayList<>();
 
 	@Override
-	@PreAuthorize("hasAnyRole({'ROLE_SPITTLE','ROLE_ADMIN'})")
-	//@PostFilter("hasRole('ROLE_ADMIN') || filterObject.spitter.userName == principal.username")
-	@PostFilter("hasPermission(filterObject,'read')")
+	// @PreAuthorize("hasAnyRole({'ROLE_SPITTLE','ROLE_ADMIN'})")
+	// @PostFilter("hasRole('ROLE_ADMIN') || filterObject.spitter.userName ==
+	// principal.username")
+	// @PostFilter("hasPermission(filterObject,'read')")
 	public List<Spittle> findSpittles(long max, int count) {
 		return dummySpittles();
 	}
 
-	private List<Spittle> dummySpittles() {
-		
-		List<Spittle> temp = new ArrayList<>();
-		
+	public DefaultSpittleDepository() {
+
 		Spitter spitter = new Spitter();
 		spitter.setUserName("anina");
-		
+
 		Spitter spitter2 = new Spitter();
 		spitter2.setUserName("siby");
-		
 
 		Spittle sp1 = new Spittle(1l, "Hello World, The first ever Spittle", new Date(), 0.0, 1.0);
 		sp1.setSpitter(spitter);
@@ -47,15 +45,16 @@ public class DefaultSpittleDepository implements SpittleRepository {
 		sp3.setSpitter(spitter);
 		Spittle sp4 = new Spittle(4l, "Spittles go fourth", new Date(), 6.1, 2.9);
 		sp4.setSpitter(spitter2);
-		
-		temp.add(sp1);
-		temp.add(sp2);
-		temp.add(sp3);
-		temp.add(sp4); 
-		
-		spittleList = temp;
-		
-		
+
+		spittleList.add(sp1);
+		spittleList.add(sp2);
+		spittleList.add(sp3);
+		spittleList.add(sp4);
+
+	}
+
+	private List<Spittle> dummySpittles() {
+
 		return spittleList;
 
 	}
@@ -63,11 +62,23 @@ public class DefaultSpittleDepository implements SpittleRepository {
 	@Override
 	public Spittle findOne(long id) {
 		try {
-			return spittleList.get((int) id);
+			return spittleList.get((int) id-1);
 		} catch (Exception e) {
-			throw new SpittleNotFoundException();
+			throw new SpittleNotFoundException(id);
 		}
 
+	}
+
+	@Override
+	public Spittle saveSpittle(Spittle spittle) {
+		spittle.setId((long) (spittleList.size() + 1));
+		spittleList.add(spittle);
+		return spittle;
+	}
+
+	@Override
+	public void delete(long id) {
+		spittleList.remove((int)id-1);
 	}
 
 }
